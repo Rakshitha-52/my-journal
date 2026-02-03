@@ -14,6 +14,11 @@
 </div>
 
 <div id="app" style="display:none;">
+
+    <input type="date" id="journalDate">
+<textarea id="journal" placeholder="Write your thoughts..."></textarea>
+<button onclick="saveJournal()">Save Journal</button>
+
   <h1>📖 KATHA</h1>
 
 
@@ -24,6 +29,8 @@
   <h2>📋 Tasks</h2>
   <input type="text" id="taskInput" placeholder="New task">
   <button onclick="addTask()">Add</button>
+
+  
 
   <ul id="taskList"></ul>
 </div>

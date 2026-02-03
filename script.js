@@ -23,6 +23,7 @@ window.onload = function () {
   if (sessionStorage.getItem("auth") === "true") {
     showApp();
   }
+  
 
   // Load journal
   document.getElementById("journal").value =
@@ -30,13 +31,42 @@ window.onload = function () {
 
   // Load tasks
   showTasks();
+
+  const today = new Date().toISOString().split("T")[0];
+document.getElementById("journalDate").value = today;
+loadJournal();
+
+document.getElementById("journalDate").addEventListener("change", loadJournal);
+
 };
 
-function saveJournal() {
-  let text = document.getElementById("journal").value;
-  localStorage.setItem("journal", text);
-  alert("Journal saved!");
+function getJournals() {
+  return JSON.parse(localStorage.getItem("journals")) || {};
 }
+
+function saveJournal() {
+  const date = document.getElementById("journalDate").value;
+  const text = document.getElementById("journal").value;
+
+  if (!date) {
+    alert("Please select a date");
+    return;
+  }
+
+  let journals = getJournals();
+  journals[date] = text;
+
+  localStorage.setItem("journals", JSON.stringify(journals));
+  alert("Journal saved for " + date);
+}
+
+function loadJournal() {
+  const date = document.getElementById("journalDate").value;
+  let journals = getJournals();
+
+  document.getElementById("journal").value = journals[date] || "";
+}
+
 
 function addTask() {
   let task = document.getElementById("taskInput").value;
