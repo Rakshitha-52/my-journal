@@ -5,29 +5,30 @@ function checkPassword() {
 
   if (entered === PASSWORD) {
     sessionStorage.setItem("auth", "true");
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("app").style.display = "block";
+    showApp();
   } else {
     alert("Wrong password");
   }
 }
 
+function showApp() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+
+// ✅ ONE onload only
 window.onload = function () {
+
+  // Check login
   if (sessionStorage.getItem("auth") === "true") {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("app").style.display = "block";
+    showApp();
   }
 
+  // Load journal
   document.getElementById("journal").value =
     localStorage.getItem("journal") || "";
 
-  showTasks();
-};
-
-window.onload = function () {
-  document.getElementById("journal").value =
-    localStorage.getItem("journal") || "";
-
+  // Load tasks
   showTasks();
 };
 
