@@ -6,6 +6,14 @@
 </head>
 <body>
 
+<div id="loginBox">
+  <h2>🔒 Private Journal</h2>
+  <input type="password" id="password" placeholder="Enter password">
+  <br><br>
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<div id="app" style="display:none;">
   <h1>📝 My Journal</h1>
 
   <textarea id="journal" placeholder="Write your thoughts..."></textarea>
@@ -17,7 +25,9 @@
   <button onclick="addTask()">Add</button>
 
   <ul id="taskList"></ul>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
+
 </html>

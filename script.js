@@ -1,4 +1,29 @@
-// Load saved data when page opens
+const PASSWORD = "12345"; 
+
+function checkPassword() {
+  const entered = document.getElementById("password").value;
+
+  if (entered === PASSWORD) {
+    sessionStorage.setItem("auth", "true");
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  } else {
+    alert("Wrong password");
+  }
+}
+
+window.onload = function () {
+  if (sessionStorage.getItem("auth") === "true") {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }
+
+  document.getElementById("journal").value =
+    localStorage.getItem("journal") || "";
+
+  showTasks();
+};
+
 window.onload = function () {
   document.getElementById("journal").value =
     localStorage.getItem("journal") || "";
