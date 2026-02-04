@@ -31,6 +31,8 @@ window.onload = function () {
 
   // Load tasks
   showTasks();
+  showJournalList();
+
 
   const today = new Date().toISOString().split("T")[0];
 document.getElementById("journalDate").value = today;
@@ -57,7 +59,9 @@ function saveJournal() {
   journals[date] = text;
 
   localStorage.setItem("journals", JSON.stringify(journals));
-  alert("Journal saved for " + date);
+alert("Journal saved for " + date);
+showJournalList();
+
 }
 
 function loadJournal() {
@@ -90,4 +94,26 @@ function showTasks() {
     li.innerText = t;
     list.appendChild(li);
   });
+}
+
+function showJournalList() {
+  const journals = getJournals();
+  const list = document.getElementById("journalList");
+  list.innerHTML = "";
+
+  Object.keys(journals)
+    .sort()
+    .reverse()
+    .forEach(date => {
+      const li = document.createElement("li");
+      li.innerText = date;
+      li.style.cursor = "pointer";
+
+      li.onclick = function () {
+        document.getElementById("journalDate").value = date;
+        loadJournal();
+      };
+
+      list.appendChild(li);
+    });
 }
