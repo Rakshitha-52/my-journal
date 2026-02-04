@@ -117,3 +117,33 @@ function showJournalList() {
       list.appendChild(li);
     });
 }
+
+function deleteJournal() {
+  const date = document.getElementById("journalDate").value;
+
+  if (!date) {
+    alert("No date selected");
+    return;
+  }
+
+  let journals = getJournals();
+
+  if (!journals[date]) {
+    alert("No journal entry for this date");
+    return;
+  }
+
+  const confirmDelete = confirm(
+    "Are you sure you want to delete the journal for " + date + "?"
+  );
+
+  if (!confirmDelete) return;
+
+  delete journals[date];
+  localStorage.setItem("journals", JSON.stringify(journals));
+
+  document.getElementById("journal").value = "";
+  showJournalList();
+
+  alert("Journal deleted for " + date);
+}
